@@ -24,7 +24,7 @@ class LoginViewModel : ViewModel() {
             .addOnFailureListener { exception ->
                 val errorMessage = when {
                     exception.localizedMessage?.contains("email address is already in use") == true ->
-                        "Email has been used, try signing in or register with a different email account."
+                        "The provided email address is already in use. Please sign in or register with a different email address."
                     exception.localizedMessage?.contains("weak-password") == true ->
                         "Password is too weak. Please use a stronger password."
                     else -> exception.localizedMessage ?: "Registration failed. Please try again."

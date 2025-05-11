@@ -22,13 +22,11 @@ fun HomeScreen(navController: NavController) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        // Add a logo or image here if needed
         Image(
             painter = painterResource(id = R.drawable.ic_memematch),
             contentDescription = "Logo",
-            modifier = Modifier.size(100.dp)
+            modifier = Modifier.size(250.dp)
         )
-        Text(text = "Welcome to MemeMatch!", modifier = Modifier.padding(bottom = 32.dp))
         Button(onClick = { navController.navigate("request") }, modifier = Modifier.fillMaxWidth()) {
             Text(text = "Enter your request")
         }
