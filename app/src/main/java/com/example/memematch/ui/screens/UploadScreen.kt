@@ -7,6 +7,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -15,6 +16,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -159,7 +161,21 @@ fun UploadScreen(
                         shape = RoundedCornerShape(8.dp),
                         colors = CardDefaults.cardColors(containerColor = Color.LightGray)
                     ) {
-                        Column {
+                        Column(
+                            modifier = Modifier.pointerInput(Unit) {
+                                detectTapGestures(
+                                    onDoubleTap = {
+                                        coroutineScope.launch {
+                                            if (favoritesViewModel.isFavorite(viewModel.uploadedMemes[index])) {
+                                                favoritesViewModel.removeFavorite(viewModel.uploadedMemes[index])
+                                            } else {
+                                                favoritesViewModel.addFavorite(viewModel.uploadedMemes[index])
+                                            }
+                                        }
+                                    }
+                                )
+                            }
+                        ) {
                             Image(
                                 painter = rememberAsyncImagePainter(viewModel.uploadedMemes[index]),
                                 contentDescription = "Meme",
