@@ -51,6 +51,8 @@ class LoginViewModel : ViewModel() {
                     "Incorrect password. Please try again."
                 exception.localizedMessage?.contains("Given String is empty or null") == true ->
                     "Please enter your password!"
+                exception.localizedMessage?.contains("A network error") == true ->
+                    "Network error. Please check your internet connection."
                 else -> exception.localizedMessage ?: "Login failed. Please try again."
             }
             loginUiState = LoginUiState.Error(errorMessage)

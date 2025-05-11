@@ -15,6 +15,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.InputStream
 import com.google.firebase.firestore.FirebaseFirestore
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class UploadViewModel : ViewModel() {
     var selectedImageUri by mutableStateOf<Uri?>(null)
@@ -73,10 +75,13 @@ class UploadViewModel : ViewModel() {
 
     private fun saveUploadToFirestore() {
         val uid = auth.currentUser?.uid ?: return
+        val dateFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(System.currentTimeMillis())
+
         val uploadData = hashMapOf(
             "uid" to uid,
             "author" to auth.currentUser?.email,
-            "uploadDate" to System.currentTimeMillis(),
+            "uploadDate" to formattedDate,
             "context" to contextOptionReal,
             "topN" to topN
         )

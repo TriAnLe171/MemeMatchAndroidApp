@@ -40,6 +40,28 @@ class HistoryViewModel : ViewModel() {
         clearHistoryFromFirestore()
     }
 
+    fun removeQuery(query: String) {
+        history = history - query
+        removeQueryFromFirestore(query)
+    }
+
+    private fun removeQueryFromFirestore(query: String) {
+        val uid = auth.currentUser?.uid ?: return
+        firestore.collection("Users")
+            .document(uid)
+            .collection("History")
+            .whereEqualTo("query", query)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    document.reference.delete()
+                }
+            }
+            .addOnFailureListener { e ->
+                // Handle failure (e.g., log the error)
+            }
+    }
+
     private fun loadHistoryFromFirestore(user: FirebaseUser) {
         val uid = user.uid
         firestore.collection("Users")

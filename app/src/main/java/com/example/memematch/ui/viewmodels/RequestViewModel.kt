@@ -11,6 +11,8 @@ import com.example.memematch.ui.network.RetrofitInstance
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 class RequestViewModel : ViewModel() {
     var query by mutableStateOf("")
@@ -61,13 +63,16 @@ class RequestViewModel : ViewModel() {
 
     private fun saveRequestToFirestore() {
         val uid = auth.currentUser?.uid ?: return
+        val dateFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(System.currentTimeMillis())
+
         val requestData = hashMapOf(
             "uid" to uid,
             "author" to auth.currentUser?.email,
             "request" to query,
             "topN" to topN,
             "topNTemplate" to topNTemplate,
-            "requestDate" to System.currentTimeMillis().toString()
+            "requestDate" to formattedDate
         )
         firestore.collection("Request").add(requestData)
             .addOnSuccessListener { /* Handle success */ }
@@ -76,7 +81,8 @@ class RequestViewModel : ViewModel() {
 
     private fun saveMemesToFirestore(response: MemeResponse?) {
         val uid = auth.currentUser?.uid ?: return
-
+        val dateFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.getDefault())
+        val formattedDate = dateFormat.format(System.currentTimeMillis())
         // Ensure details is properly serialized
         val detailsMap = response?.details?.mapValues { it.value.toString() } ?: emptyMap()
 
@@ -84,6 +90,7 @@ class RequestViewModel : ViewModel() {
         val memeData = hashMapOf(
             "uid" to uid,
             "author" to auth.currentUser?.email,
+            "requestDate" to formattedDate,
             "query" to query,
             "memes" to (response?.memes ?: emptyList()), // Firestore supports lists directly
             "need_template" to (response?.need_template ?: false),

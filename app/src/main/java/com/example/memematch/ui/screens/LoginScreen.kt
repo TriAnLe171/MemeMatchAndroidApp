@@ -51,15 +51,11 @@ fun LoginScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_memematch_highres),
+                painter = painterResource(id = R.drawable.ic_memematch),
                 contentDescription = "Logo",
-                modifier = Modifier.size(55.dp)
+                modifier = Modifier.size(250.dp)
             )
             Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = "MEMEMATCH",
-                fontSize = 45.sp
-            )
         }
         Column(
             modifier = Modifier

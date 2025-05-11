@@ -24,7 +24,7 @@ fun HomeScreen(navController: NavController) {
     ) {
         // Add a logo or image here if needed
         Image(
-            painter = painterResource(id = R.drawable.ic_memematch_highres),
+            painter = painterResource(id = R.drawable.ic_memematch),
             contentDescription = "Logo",
             modifier = Modifier.size(100.dp)
         )
