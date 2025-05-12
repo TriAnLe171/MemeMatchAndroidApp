@@ -45,10 +45,8 @@ class RequestViewModel : ViewModel() {
                     memes = response.body()?.memes ?: emptyList()
                     historyViewModel?.addQuery(query) // Add query to shared HistoryViewModel
 
-                    // Save query to Firestore
                     saveRequestToFirestore()
 
-                    // Save memes to Firestore
                     saveMemesToFirestore(response.body())
                 } else {
                     errorMessage = "Error: ${response.code()}"
@@ -83,21 +81,18 @@ class RequestViewModel : ViewModel() {
         val uid = auth.currentUser?.uid ?: return
         val dateFormat = SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy", Locale.getDefault())
         val formattedDate = dateFormat.format(System.currentTimeMillis())
-        // Ensure details is properly serialized
         val detailsMap = response?.details?.mapValues { it.value.toString() } ?: emptyMap()
 
-        // Prepare the meme data
         val memeData = hashMapOf(
             "uid" to uid,
             "author" to auth.currentUser?.email,
             "requestDate" to formattedDate,
             "query" to query,
-            "memes" to (response?.memes ?: emptyList()), // Firestore supports lists directly
+            "memes" to (response?.memes ?: emptyList()),
             "need_template" to (response?.need_template ?: false),
-            "details" to detailsMap // Ensure details is a Map<String, String>
+            "details" to detailsMap
         )
 
-        // Save to Firestore
         firestore.collection("Meme").add(memeData)
             .addOnSuccessListener { /* Handle success */ }
             .addOnFailureListener { e -> errorMessage = "Failed to save memes: ${e.localizedMessage}" }

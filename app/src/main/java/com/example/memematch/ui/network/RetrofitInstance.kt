@@ -7,15 +7,15 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitInstance {
     private val client = OkHttpClient.Builder()
-        .connectTimeout(90, TimeUnit.SECONDS) // Increase connection timeout
-        .readTimeout(90, TimeUnit.SECONDS)    // Increase read timeout
-        .writeTimeout(90, TimeUnit.SECONDS)   // Increase write timeout
+        .connectTimeout(90, TimeUnit.SECONDS)
+        .readTimeout(90, TimeUnit.SECONDS)
+        .writeTimeout(90, TimeUnit.SECONDS)
         .build()
 
     val api: MemeApi by lazy {
         Retrofit.Builder()
             .baseUrl("https://hugely-climbing-moray.ngrok-free.app/")
-            .client(client) // Use the custom OkHttpClient
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(MemeApi::class.java)

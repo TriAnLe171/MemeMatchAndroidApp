@@ -80,7 +80,7 @@ fun AboutCardView() {
         ) {
             // Profile image
             Image(
-                painter = painterResource(R.drawable.profile), // Place your image in res/drawable
+                painter = painterResource(R.drawable.profile),
                 contentDescription = "Profile Image",
                 modifier = Modifier
                     .size(100.dp)

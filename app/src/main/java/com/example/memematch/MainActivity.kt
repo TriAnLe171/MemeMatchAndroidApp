@@ -48,6 +48,7 @@ import com.example.memematch.ui.screens.*
 import com.example.memematch.ui.theme.MemeMatchTheme
 import com.example.memematch.ui.viewmodels.HistoryViewModel
 import com.example.memematch.ui.viewmodels.RequestViewModel
+import com.example.memematch.ui.viewmodels.ForgotPasswordViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 
@@ -61,7 +62,6 @@ class MainActivity : ComponentActivity() {
                 if (showSplashScreen) {
                     SplashScreen { showSplashScreen = false }
                 } else {
-                    // Main content after splash screen
                     val navController = rememberNavController()
                     val historyViewModel: HistoryViewModel = viewModel() // Create shared HistoryViewModel
                     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
@@ -83,7 +83,6 @@ fun SplashScreen(onTimeout: () -> Unit) {
     val fullText = "Your AI Meme Recommendation Assistant"
     var displayedText by remember { mutableStateOf("") }
 
-    // Scale animation for logo
     val scale = remember { Animatable(0f) }
 
     LaunchedEffect(Unit) {
@@ -97,9 +96,9 @@ fun SplashScreen(onTimeout: () -> Unit) {
         )
         for (i in fullText.indices) {
             displayedText = fullText.substring(0, i + 1)
-            delay(50) // Animate text appearance
+            delay(50)
         }
-        delay(1000) // Wait before navigating
+        delay(1000)
         onTimeout()
     }
 
@@ -154,10 +153,10 @@ fun MainNavigation(
         composable("login") { LoginScreen(navController) }
         composable("home") { HomeScreen(navController) }
         composable("request") {
-            val requestViewModel: RequestViewModel = viewModel() // Create RequestViewModel
+            val requestViewModel: RequestViewModel = viewModel()
             RequestScreen(
                 navController = navController,
-                requestViewModel = requestViewModel, // Pass RequestViewModel
+                requestViewModel = requestViewModel,
                 historyViewModel = historyViewModel // Pass HistoryViewModel
             )
         }
@@ -165,5 +164,10 @@ fun MainNavigation(
         composable("history") { HistoryScreen(navController, historyViewModel) }
         composable("about") { AboutScreen(navController) }
         composable("favorites") { FavoritesScreen(navController) }
+        composable("forgot_password") {
+            ForgotPasswordScreen(
+                onPasswordResetSent = { navController.popBackStack("login", inclusive = false) }
+            )
+        }
     }
 }

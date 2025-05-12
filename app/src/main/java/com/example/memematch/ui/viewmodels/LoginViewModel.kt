@@ -27,7 +27,9 @@ class LoginViewModel : ViewModel() {
                         "The provided email address is already in use. Please sign in or register with a different email address."
                     exception.localizedMessage?.contains("weak-password") == true ->
                         "Password is too weak. Please use a stronger password."
-                    else -> exception.localizedMessage ?: "Registration failed. Please try again."
+                    exception.localizedMessage?.contains("A network error") == true ->
+                        "Network error. Please check your internet connection."
+                    else -> exception.localizedMessage ?: "Registration failed. Please try again or contact: triandole@gmail.com."
                 }
                 loginUiState = LoginUiState.Error(errorMessage)
             }
@@ -53,7 +55,7 @@ class LoginViewModel : ViewModel() {
                     "Please enter your password!"
                 exception.localizedMessage?.contains("A network error") == true ->
                     "Network error. Please check your internet connection."
-                else -> exception.localizedMessage ?: "Login failed. Please try again."
+                else -> exception.localizedMessage ?: "Login failed. Please try again or contact: triandole@gmail.com."
             }
             loginUiState = LoginUiState.Error(errorMessage)
             null

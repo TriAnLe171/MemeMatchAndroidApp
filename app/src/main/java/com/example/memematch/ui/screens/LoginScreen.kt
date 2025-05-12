@@ -3,10 +3,10 @@ package com.example.memematch.ui.screens
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -22,13 +22,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import kotlinx.coroutines.launch
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.memematch.R
 import com.example.memematch.ui.viewmodels.LoginUiState
 import com.example.memematch.ui.viewmodels.LoginViewModel
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -83,11 +82,10 @@ fun LoginScreen(
                 leadingIcon = { Icon(Icons.Default.Info, null) },
                 trailingIcon = {
                     IconButton(onClick = { showPassword = !showPassword }) {
-                        if (showPassword) {
-                            Icon(Icons.Default.Add, null)
-                        } else {
-                            Icon(Icons.Default.Clear, null)
-                        }
+                        Icon(
+                            imageVector = if (showPassword) Icons.Default.Visibility else Icons.Default.VisibilityOff,
+                            contentDescription = if (showPassword) "Hide password" else "Show password"
+                        )
                     }
                 }
             )
@@ -114,6 +112,12 @@ fun LoginScreen(
                 }) {
                     Text(text = "Register")
                 }
+            }
+            Spacer(modifier = Modifier.height(8.dp))
+            OutlinedButton(onClick = {
+                navController.navigate("forgot_password")
+            }) {
+                Text(text = "Forgot Password?")
             }
         }
         Column(
