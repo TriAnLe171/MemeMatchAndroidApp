@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
@@ -65,7 +66,7 @@ fun LoginScreen(
         ) {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(0.8f),
-                label = { Text(text = "E-mail") },
+                label = { Text(text = stringResource(R.string.e_mail)) },
                 value = email,
                 onValueChange = { email = it },
                 singleLine = true,
@@ -74,7 +75,7 @@ fun LoginScreen(
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(0.8f),
-                label = { Text(text = "Password") },
+                label = { Text(text = stringResource(R.string.password)) },
                 value = password,
                 onValueChange = { password = it },
                 singleLine = true,
@@ -105,19 +106,19 @@ fun LoginScreen(
                         }
                     }
                 }) {
-                    Text(text = "Login")
+                    Text(text = stringResource(R.string.login))
                 }
                 OutlinedButton(onClick = {
                     viewModel.registerUser(email, password)
                 }) {
-                    Text(text = "Register")
+                    Text(text = stringResource(R.string.register))
                 }
             }
             Spacer(modifier = Modifier.height(8.dp))
             OutlinedButton(onClick = {
                 navController.navigate("forgot_password")
             }) {
-                Text(text = "Forgot Password?")
+                Text(text = stringResource(R.string.forgot_password))
             }
         }
         Column(
@@ -139,14 +140,14 @@ fun LoginScreen(
                 is LoginUiState.Loading -> CircularProgressIndicator()
                 is LoginUiState.LoginSuccess -> {
                     Text(
-                        "Login successful!",
+                        stringResource(R.string.login_successful),
                         color = androidx.compose.ui.graphics.Color.Green,
                         modifier = Modifier.padding(8.dp)
                     )
                 }
                 is LoginUiState.RegisterSuccess -> {
                     Text(
-                        "Registration successful! You can now log in.",
+                        stringResource(R.string.registration_successful_you_can_now_log_in),
                         color = androidx.compose.ui.graphics.Color.Green,
                         modifier = Modifier.padding(8.dp)
                     )

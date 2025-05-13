@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun SplashScreen(onTimeout: () -> Unit) {
     var isVisible by remember { mutableStateOf(false) }
-    val fullText = "Your AI Meme Recommendation Assistant"
+    val fullText = stringResource(R.string.your_ai_meme_recommendation_assistant)
     var displayedText by remember { mutableStateOf("") }
 
     val scale = remember { Animatable(0f) }

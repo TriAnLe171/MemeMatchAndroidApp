@@ -18,10 +18,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
+import com.example.memematch.R
 import com.example.memematch.ui.viewmodels.UploadViewModel
 import com.example.memematch.ui.viewmodels.FavoritesViewModel
 import kotlinx.coroutines.launch
@@ -46,12 +48,12 @@ fun UploadScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text("Find Similar Memes", style = MaterialTheme.typography.titleLarge)
+        Text(stringResource(R.string.find_similar_memes), style = MaterialTheme.typography.titleLarge)
 
         Spacer(modifier = Modifier.height(8.dp))
 
         Button(onClick = { imagePickerLauncher.launch("image/*") }) {
-            Text("Upload Image")
+            Text(stringResource(R.string.upload_image))
         }
 
         viewModel.selectedImageUri?.let { uri ->
@@ -75,9 +77,10 @@ fun UploadScreen(
                     .weight(1f)
                     .padding(end = 8.dp)
             ) {
-                Text("Search Preference")
+                Text(stringResource(R.string.search_preference))
                 var expanded by remember { mutableStateOf(false) }
-                val contextOptions = listOf("Image-based", "Text-based")
+                val contextOptions = listOf(stringResource(R.string.image_based),
+                    stringResource(R.string.text_based))
                 // Image-based = 'global' and Text-based = 'local'
 
                 Box {
@@ -105,7 +108,7 @@ fun UploadScreen(
                     .weight(1f)
                     .padding(start = 8.dp)
             ) {
-                Text("Number of Results")
+                Text(stringResource(R.string.number_of_results))
                 val topOptions = listOf(10,20,50)
                 var topExpanded by remember { mutableStateOf(false) }
                 Box {
@@ -134,7 +137,7 @@ fun UploadScreen(
             modifier = Modifier.fillMaxWidth(),
             enabled = viewModel.selectedImageUri != null && !viewModel.isLoading
         ) {
-            Text("Find similar memes")
+            Text(stringResource(R.string.find_similar_memes_button))
         }
 
         if (viewModel.isLoading) {
@@ -151,7 +154,7 @@ fun UploadScreen(
 
         if (viewModel.uploadedMemes.isNotEmpty()) {
             Spacer(modifier = Modifier.height(8.dp))
-            Text("Recommended Memes", style = MaterialTheme.typography.titleMedium)
+            Text(stringResource(R.string.recommended_memes), style = MaterialTheme.typography.titleMedium)
             LazyColumn {
                 items(viewModel.uploadedMemes.size) { index ->
                     Card(

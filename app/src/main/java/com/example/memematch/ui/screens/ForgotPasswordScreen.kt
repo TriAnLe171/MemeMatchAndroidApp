@@ -18,8 +18,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.memematch.R
 import com.example.memematch.ui.viewmodels.ForgotPasswordViewModel
 import kotlinx.coroutines.launch
 
@@ -43,7 +45,7 @@ fun ForgotPasswordScreen(
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Enter your email") },
+            label = { Text(stringResource(R.string.enter_your_email)) },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
@@ -58,7 +60,7 @@ fun ForgotPasswordScreen(
                 }
             }
         }) {
-            Text("Send Password Reset Email")
+            Text(stringResource(R.string.send_password_reset_email))
         }
         Spacer(modifier = Modifier.height(16.dp))
         if (message.isNotEmpty()) {

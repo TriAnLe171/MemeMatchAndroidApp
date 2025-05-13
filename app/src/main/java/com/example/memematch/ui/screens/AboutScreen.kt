@@ -18,6 +18,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.platform.LocalContext
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.example.memematch.R
 
@@ -25,6 +30,8 @@ import com.example.memematch.R
 fun AboutScreen(
     navHostController: NavHostController
 ) {
+    val context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -33,28 +40,50 @@ fun AboutScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "About MemeMatch",
+            text = stringResource(R.string.about_memematch),
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
         Text(
-            text = "MemeMatch is designed to feel fun, fast, and effortless — like chatting with a meme-savvy friend. " +
-                    "The app uses natural input to recommend memes that match your mood, usage context, or topic of interest. " +
-                    "Whether you're looking for humor, motivation, or just a meme to share with a friend, MemeMatch helps you find the perfect one for every moment.",
+            text = stringResource(R.string.memematch_is_designed_to_feel_fun_fast_and_effortless_like_chatting_with_a_meme_savvy_friend) +
+                    stringResource(R.string.the_app_uses_natural_input_to_recommend_memes_that_match_your_mood_usage_context_or_topic_of_interest) +
+                    stringResource(R.string.whether_you_re_looking_for_humor_motivation_or_just_a_meme_to_share_with_a_friend_memematch_helps_you_find_the_perfect_one_for_every_moment),
             fontSize = 16.sp,
             lineHeight = 24.sp,
-            textAlign = TextAlign.Justify,
+            textAlign = TextAlign.Left,
             modifier = Modifier.padding(bottom = 24.dp)
         )
+
+        Row {
+            Text(
+                text = stringResource(R.string.to_access_the_web_version_please_follow_this),
+                fontSize = 14.sp,
+                lineHeight = 24.sp,
+                textAlign = TextAlign.Left,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Text(
+                text = stringResource(R.string.link),
+                fontSize = 14.sp,
+                color = Color(0xFF42A5F5),
+                textDecoration = TextDecoration.Underline,
+                modifier = Modifier.clickable {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://hugely-climbing-moray.ngrok-free.app/"))
+                    context.startActivity(intent)
+                }
+            )
+        }
+
+        Spacer(modifier = Modifier.height(24.dp))
 
         Divider()
 
         Spacer(modifier = Modifier.height(24.dp))
 
         Text(
-            text = "MemeMatch Developer",
+            text = stringResource(R.string.memematch_developer),
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold
         )
@@ -62,7 +91,8 @@ fun AboutScreen(
         Spacer(modifier = Modifier.height(8.dp))
 
         AboutCardView()
-    }}
+    }
+}
 
 @Composable
 fun AboutCardView() {
@@ -91,13 +121,13 @@ fun AboutCardView() {
 
             // Title and subtitle
             Text(
-                text = "Tri An Le",
+                text = stringResource(R.string.tri_an_le),
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Black
             )
             Text(
-                text = "Data Science & AI Enthusiast",
+                text = stringResource(R.string.data_science_ai_enthusiast),
                 fontSize = 16.sp,
                 color = Color.DarkGray
             )
@@ -105,9 +135,9 @@ fun AboutCardView() {
             Spacer(modifier = Modifier.height(12.dp))
 
             // Contact Info
-            ContactRow("Email:", "triandole@gmail.com")
-            ContactRow("Contact:", "+1 765 350 9132")
-            ContactRow("LinkedIn:", "linkedin.com/in/trianle")
+            ContactRow(stringResource(R.string.email), stringResource(R.string.triandole_gmail_com))
+            ContactRow(stringResource(R.string.contact), stringResource(R.string._1_765_350_9132))
+            ContactRow(stringResource(R.string.linkedin), stringResource(R.string.linkedin_com_in_trianle))
 
             Spacer(modifier = Modifier.height(16.dp))
             Divider(color = Color.Gray)
@@ -121,17 +151,17 @@ fun AboutCardView() {
                 horizontalAlignment = Alignment.Start
             ) {
                 Text(
-                    text = "Version 1.0.0",
+                    text = stringResource(R.string.version_1_0_0),
                     color = Color.Gray,
                     fontSize = 12.sp
                 )
                 Text(
-                    text = "Created: April 2025",
+                    text = stringResource(R.string.created_april_2025),
                     color = Color.Gray,
                     fontSize = 12.sp
                 )
                 Text(
-                    text = "© 2025 MEMEMATCH. All rights reserved.",
+                    text = stringResource(R.string._2025_memematch_all_rights_reserved),
                     color = Color.Gray,
                     fontSize = 12.sp
                 )

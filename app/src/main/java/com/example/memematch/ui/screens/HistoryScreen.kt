@@ -17,9 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.memematch.R
 import com.example.memematch.ui.viewmodels.HistoryViewModel
 
 @Composable
@@ -34,7 +36,7 @@ fun HistoryScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text("Search History", style = androidx.compose.material3.MaterialTheme.typography.titleLarge)
+        Text(stringResource(R.string.search_history), style = androidx.compose.material3.MaterialTheme.typography.titleLarge)
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -71,7 +73,7 @@ fun HistoryScreen(
             onClick = { viewModel.clearHistory() },
             modifier = Modifier.align(Alignment.CenterHorizontally)
         ) {
-            Text("Clear History")
+            Text(stringResource(R.string.clear_history))
         }
     }
 }

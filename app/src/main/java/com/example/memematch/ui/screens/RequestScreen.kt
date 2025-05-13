@@ -59,6 +59,7 @@ import com.example.memematch.ui.viewmodels.FavoritesViewModel
 import com.example.memematch.ui.viewmodels.HistoryViewModel
 import com.example.memematch.ui.viewmodels.RequestViewModel
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.core.content.FileProvider
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -77,30 +78,32 @@ fun RequestScreen(
 ) {
     val coroutineScope = rememberCoroutineScope()
 
-    Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp)) {
 
-        Text("Enter Your Request", style = MaterialTheme.typography.titleLarge)
+        Text(stringResource(R.string.enter_your_request), style = MaterialTheme.typography.titleLarge)
 
         Spacer(modifier = Modifier.height(8.dp))
 
         TextField(
             value = requestViewModel.query,
             onValueChange = { requestViewModel.updateQuery(it) },
-            label = { Text("Please describe your need here...") },
+            label = { Text(stringResource(R.string.please_describe_your_need_here)) },
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(modifier = Modifier.height(16.dp))
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             DropdownSelector(
-                label = "Number of Memes",
+                label = stringResource(R.string.number_of_memes),
                 options = listOf(10, 20, 50),
                 selected = requestViewModel.topN,
                 onSelectedChange = { requestViewModel.topN = it }
             )
 
             DropdownSelector(
-                label = "Number of Meme Templates",
+                label = stringResource(R.string.number_of_meme_templates),
                 options = listOf(5, 10, 20),
                 selected = requestViewModel.topNTemplate,
                 onSelectedChange = { requestViewModel.topNTemplate = it }
@@ -117,7 +120,7 @@ fun RequestScreen(
             },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Get Memes")
+            Text(stringResource(R.string.get_memes))
         }
 
         requestViewModel.errorMessage?.let { error ->
@@ -135,7 +138,9 @@ fun RequestScreen(
         }
 
         if (requestViewModel.isLoading) {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp))
+            LinearProgressIndicator(modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp))
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -224,11 +229,11 @@ fun ShareDialog(memeUrl: String, onDismiss: () -> Unit) {
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Share Meme", style = MaterialTheme.typography.titleLarge) },
+        title = { Text(stringResource(R.string.share_meme), style = MaterialTheme.typography.titleLarge) },
         text = {
             Column {
                 Text(
-                    "Choose a platform to share this meme:",
+                    stringResource(R.string.choose_a_platform_to_share_this_meme),
                     style = MaterialTheme.typography.bodyMedium
                 )
                 Spacer(modifier = Modifier.height(16.dp))
@@ -236,13 +241,13 @@ fun ShareDialog(memeUrl: String, onDismiss: () -> Unit) {
                     horizontalArrangement = Arrangement.SpaceEvenly,
                     modifier = Modifier.fillMaxWidth()
                 ) {
-                    ShareButton("Facebook", R.drawable.ic_facebook) {
+                    ShareButton(stringResource(R.string.facebook), R.drawable.ic_facebook) {
                         shareImageToPlatform(context, memeUrl, "com.facebook.katana")
                     }
-                    ShareButton("Instagram", R.drawable.ic_instagram) {
+                    ShareButton(stringResource(R.string.instagram), R.drawable.ic_instagram) {
                         shareImageToPlatform(context, memeUrl, "com.instagram.android")
                     }
-                    ShareButton("X", R.drawable.ic_x) {
+                    ShareButton(stringResource(R.string.x), R.drawable.ic_x) {
                         shareImageToPlatform(context, memeUrl, "com.twitter.android")
                     }
                 }
@@ -250,7 +255,7 @@ fun ShareDialog(memeUrl: String, onDismiss: () -> Unit) {
         },
         confirmButton = {
             Button(onClick = onDismiss) {
-                Text("Close")
+                Text(stringResource(R.string.close))
             }
         }
     )
